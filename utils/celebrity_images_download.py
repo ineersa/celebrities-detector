@@ -19,7 +19,7 @@ class CelebrityImagesDownload(object):
         self.keywords = ['', ' face', ' side face', ' looking up', ' looking down', ' wearing glasses', ' happy face', ' nose', ' close up', ' young', ' angry']
         self.db = db
         self.headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36"}
-
+        logger.info("Init")
 
 
     def _download_image_and_save(self, url, celebrity):
@@ -98,7 +98,7 @@ class CelebrityImagesDownload(object):
             })
             if index == 10:
                 break
-
+        logger.info("Images done")
         return google_images
 
     def _get_items(self, search):
@@ -111,7 +111,9 @@ class CelebrityImagesDownload(object):
             "ijn": "0",                    # page number
         }
         html = requests.get("https://www.google.com/search", params=params, headers=self.headers, timeout=30)
+        logger.info("Received html")
         soup = BeautifulSoup(html.text, "lxml")
+        logger.info("soup done")
         original_images = self.get_original_images(soup)
 
         return original_images
@@ -121,6 +123,7 @@ class CelebrityImagesDownload(object):
         images = []
         for keyword in self.keywords:
             search = celebrity.name + keyword
+            logger.info(f"Searching for {search}")
             images = images + (self._get_items(search))
 
         for image in images:
