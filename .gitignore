@@ -12,7 +12,6 @@ __pycache__/
 
 # Virtual Environment
 venv/
-.env
 .env.local
 
 # IDE directories
