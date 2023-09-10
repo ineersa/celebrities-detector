@@ -2,6 +2,7 @@ import io
 import json
 import logging
 import os
+import random
 import re
 import time
 import urllib.request
@@ -90,14 +91,22 @@ class CelebrityImagesDownload(object):
             matched_google_full_resolution_images
         ]
 
-        for index, (thumbnail, original) in enumerate(
-                zip(thumbnails, full_res_images), start=1):
-            google_images.append({
-                "thumbnail": thumbnail,
-                "original": original
-            })
-            if index == 10:
-                break
+        if len(thumbnails) >= 10 and len(full_res_images) >= 10:
+            selected_indices = random.sample(range(len(thumbnails)), 10)
+            for index in selected_indices:
+                google_images.append({
+                    "thumbnail": thumbnails[index],
+                    "original": full_res_images[index]
+                })
+        else:
+            for index, (thumbnail, original) in enumerate(zip(thumbnails, full_res_images), start=1):
+                google_images.append({
+                    "thumbnail": thumbnail,
+                    "original": original
+                })
+                if index == 10:
+                    break
+
         logger.info(f"Collected {len(google_images)} images to download")
         return google_images
 
