@@ -1,0 +1,51 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <h1>Celebrities</h1>
+
+    <!-- New Celebrity Form -->
+    <form method="POST" class="mb-3">
+        {{ form.hidden_tag() }}
+        <div class="input-group">
+            {{ form.name(class="form-control", placeholder="New Celebrity Name") }}
+            {{ form.submit(class="btn btn-success") }}
+        </div>
+    </form>
+
+
+    <!-- Search Form -->
+    <form method="GET" action="/celebrities" class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" name="search" placeholder="Search" value="{{ request.args.get('search', '') }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
+    <!-- Table -->
+    {{ table }}
+
+    <!-- Pagination -->
+    <nav aria-label="">
+        <ul class="pagination justify-content-end">
+            {% if pagination.has_prev %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('celebrities', page=pagination.prev_num) }}">Previous</a></li>
+            {% endif %}
+            {% for page_num in pagination.iter_pages() %}
+                {% if page_num %}
+                    {% if page_num != pagination.page %}
+                        <li class="page-item"><a class="page-link" href="{{ url_for('celebrities', page=page_num) }}">{{ page_num }}</a></li>
+                    {% else %}
+                        <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
+                    {% endif %}
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if pagination.has_next %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('celebrities', page=pagination.next_num) }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

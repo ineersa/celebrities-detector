@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# uWSGI related
+*.sock
+*.pid
+
+# Virtual Environment
+venv/
+.env
+.env.local
+
+# IDE directories
+.idea/
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Flask session files
+instance/
+
+# SQLite database file (if you are using SQLite)
+*.sqlite
+
+# Other files
+.DS_Store
+*.swp
+*.swo

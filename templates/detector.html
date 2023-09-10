@@ -1,0 +1,50 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <h1>Detector Page</h1>
+    <p>Welcome to the detector page. Here you can upload images to detect celebrities.</p>
+
+    <form action="{{ url_for('detector') }}" method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            <label for="image_upload" class="form-label">Upload Image</label>
+            {{ form.image_upload(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+
+    <h2>Predicted faces</h2>
+    {% if base64_image %}
+        <img src="data:image/jpeg;base64,{{ base64_image }}" alt="Modified Image">
+    {% endif %}
+
+    <h2>Results for custom database</h2>
+    {% if results %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Extracted Face</th>
+                    <th>Closest Image In Database</th>
+                    <th>Similarity Score</th>
+                    <th>Celebrity Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td><img src="data:image/jpeg;base64,{{ result['extracted_face'] }}" alt="Extracted Face" width="224" height="224"></td>
+                        <td><img src="{{ result['celebrity_image_path'] }}" alt="Closest Image" width="224" height="224"></td>
+                        <td>{{ result['similarity']|round(4) }}</td>
+                        <td>{{ result['celebrity_name']}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No results found</p>
+    {% endif %}
+
+
+</div>
+{% endblock %}
