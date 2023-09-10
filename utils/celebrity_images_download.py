@@ -98,7 +98,7 @@ class CelebrityImagesDownload(object):
             })
             if index == 10:
                 break
-        logger.info("Images done")
+        logger.info(f"Collected {len(google_images)} images to download")
         return google_images
 
     def _get_items(self, search):
@@ -125,6 +125,6 @@ class CelebrityImagesDownload(object):
             search = celebrity.name + keyword
             logger.info(f"Searching for {search}")
             images = images + (self._get_items(search))
-
+        logger.info(f"Collected {len(images)} images to download")
         for image in images:
             self._download_image_and_save(image, celebrity)
