@@ -111,9 +111,9 @@ class CelebrityImagesDownload(object):
             "ijn": "0",                    # page number
         }
         html = requests.get("https://www.google.com/search", params=params, headers=self.headers, timeout=30)
-        logger.info("Received html")
+        logger.info(f"Response status code: {html.status_code}")
+        logger.info(f"Response text: {html.text[:100]}")
         soup = BeautifulSoup(html.text, "lxml")
-        logger.info("soup done")
         original_images = self.get_original_images(soup)
 
         return original_images
