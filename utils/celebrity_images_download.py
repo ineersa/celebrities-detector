@@ -110,7 +110,7 @@ class CelebrityImagesDownload(object):
             "gl": "us",                   # country where search comes from
             "ijn": "0",                    # page number
         }
-        html = requests.get("https://www.google.com/search", params=params, headers=self.headers, timeout=30)
+        html = requests.get("https://www.google.com/search", params=params, headers=self.headers, cookies={'CONSENT':'YES+'}, timeout=30)
         logger.info(f"Response status code: {html.status_code}")
         logger.info(f"Response text: {html.text[:100]}")
         soup = BeautifulSoup(html.text, "lxml")
@@ -125,6 +125,8 @@ class CelebrityImagesDownload(object):
             search = celebrity.name + keyword
             logger.info(f"Searching for {search}")
             images = images + (self._get_items(search))
+            time.sleep(0.2)
+
         logger.info(f"Collected {len(images)} images to download")
         for image in images:
             self._download_image_and_save(image, celebrity)
