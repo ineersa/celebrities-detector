@@ -6,7 +6,7 @@ Create new sqlite database in `data` directory:
 sqlite3 celebrities.db
 ```
 
-Copy `.env` to `.env.local` and change needed variables.
+Copy `.env.local` to `.env` and change needed variables.
 
 Install dependencies for python:
 ```bash

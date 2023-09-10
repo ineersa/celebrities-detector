@@ -20,7 +20,7 @@ from utils.vgg_faces import VGGFaces
 from utils.embeddings import Embeddings
 from utils.celebrity_images_download import CelebrityImagesDownload
 from dotenv import load_dotenv
-load_dotenv(dotenv_path='.env.local')
+load_dotenv()
 
 logging.basicConfig(
     filename="logs/app.log",

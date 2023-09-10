@@ -12,7 +12,7 @@ __pycache__/
 
 # Virtual Environment
 venv/
-.env.local
+.env
 
 # IDE directories
 .idea/
