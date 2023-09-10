@@ -1,7 +1,8 @@
+import os
 import sqlite3
 
 # Connect to the SQLite database (or create it if it doesn't exist)
-conn = sqlite3.connect('/media/ineersa/ssd/celebrities/data/celebrities.db')
+conn = sqlite3.connect(os.environ.get('SQLALCHEMY_DATABASE_URI'))
 
 # Create a new SQLite cursor
 c = conn.cursor()
