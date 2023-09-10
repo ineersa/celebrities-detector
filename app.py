@@ -23,6 +23,7 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path='.env.local')
 
 logging.basicConfig(
+    filename="logs/app.log",
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s @ %(message)s",
     datefmt="%y-%m-%d %H:%M:%S",
